@@ -1,3 +1,5 @@
+'use strict';
+
 function extendDeep(target, toCopy) {
   for (var name in toCopy) {
     if (typeof toCopy[name] === 'object') {
