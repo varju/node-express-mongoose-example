@@ -1,5 +1,8 @@
 {
   "server": {
     "port": 9650
+  },
+  "mongo": {
+    "uri": "mongodb://localhost/node-express-mongoose-example"
   }
 }
