@@ -67,6 +67,9 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-nodemon');
 
+  // Task aliases
+  grunt.registerTask('test', ['jshint', 'mochaTest']);
+
   // Default task
-  grunt.registerTask('default', ['jshint', 'mochaTest']);
+  grunt.registerTask('default', ['test']);
 };
