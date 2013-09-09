@@ -7,7 +7,14 @@ module.exports = function (grunt) {
       test: {
         options: {
           reporter: 'spec',
+          require: 'config/coverage_blanket',
           quiet: false
+        },
+        src: ['test/**/*.js']
+      },
+      'travis-cov': {
+        options: {
+          reporter: 'travis-cov'
         },
         src: ['test/**/*.js']
       }
