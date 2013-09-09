@@ -3,7 +3,7 @@
 var express = require('express');
 
 var routeIndex = require('./routes/index');
-var config = require('../config/config.js');
+var config = require('./config.js');
 
 var app = express();
 

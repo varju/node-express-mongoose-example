@@ -4,6 +4,7 @@
 
 var should = require('should');
 
+require('../../app/config').setTestMode();
 var User = require('../../app/models/user_model').User;
 
 describe('user model', function () {

@@ -5,6 +5,7 @@
 var should = require('should');
 var request = require('supertest');
 
+require('../../app/config').setTestMode();
 var server = require('../../app/server');
 
 describe('root controller', function () {
