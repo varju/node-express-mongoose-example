@@ -14,7 +14,7 @@ describe('user model', function () {
       user.save(function (err, persistedUser) {
         should.ifError(err);
         persistedUser.name.should.eql('joe cool');
-        persistedUser.id.should.match(/[0-9a-f]{24}/);
+        persistedUser.id.should.match(/^[0-9a-f]{24}$/);
 
         User.findById(persistedUser.id, function (err, foundUser) {
           foundUser.name.should.eql('joe cool');

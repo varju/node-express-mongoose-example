@@ -3,6 +3,7 @@
 var express = require('express');
 
 var routeIndex = require('./routes/index');
+var routeUser = require('./routes/user_routes');
 var config = require('./config.js');
 
 var app = express();
@@ -18,5 +19,6 @@ if ('development' === app.get('env')) {
 }
 
 app.get('/', routeIndex.index);
+app.post('/users', routeUser.create);
 
 exports.app = app;

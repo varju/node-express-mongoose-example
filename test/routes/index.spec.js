@@ -9,9 +9,10 @@ require('../../app/config').setTestMode();
 var server = require('../../app/server');
 
 describe('root controller', function () {
-  describe('/ endpoint', function () {
+  describe('GET /', function () {
     it('should say hello', function (done) {
-      request(server.app).get('/').
+      request(server.app).
+        get('/').
         expect(200).
         expect('Content-Type', /json/).
         expect({ hello: 'world' }).

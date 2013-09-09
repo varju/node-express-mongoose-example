@@ -8,3 +8,8 @@ Call hello-world:
 ```
 curl http://localhost:9650/
 ```
+
+Create a user:
+```
+curl -X POST http://localhost:9650/users -H "Content-Type: application/json" -d '{ "name": "my user" }'
+```
