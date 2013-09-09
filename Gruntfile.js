@@ -12,6 +12,14 @@ module.exports = function (grunt) {
         },
         src: ['test/**/*.js']
       },
+      coverage: {
+        options: {
+          reporter: 'html-cov',
+          quiet: true,
+          captureFile: 'build/coverage.html'
+        },
+        src: ['test/**/*.js']
+      },
       'travis-cov': {
         options: {
           reporter: 'travis-cov'

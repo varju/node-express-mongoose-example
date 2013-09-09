@@ -25,7 +25,7 @@
   "scripts": {
     "test": "grunt test",
     "travis-cov": {
-      "threshold": 100
+      "threshold": 95
     }
   },
   "dependencies": {
