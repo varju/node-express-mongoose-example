@@ -34,6 +34,7 @@
     "grunt-contrib-nodeunit": "~0.2.0",
     "grunt-contrib-watch": "~0.4.0",
     "grunt-mocha-test": "~0.6.3",
+    "grunt-nodemon": "~0.1.1",
     "mocha": "~1.12.1",
     "supertest": "~0.7.1",
     "should": "~1.2.2"

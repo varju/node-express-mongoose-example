@@ -48,15 +48,25 @@ module.exports = function (grunt) {
         files: '<%= jshint.test.src %>',
         tasks: ['jshint:test', 'mochaTest']
       }
+    },
+
+    nodemon: {
+      dev: {
+        options: {
+          file: 'app/main.js',
+          watchedExtensions: ['js'],
+          watchedFolders: ['app', 'config', 'test']
+        }
+      }
     }
   });
 
-  // These plugins provide necessary tasks.
+  // These plugins provide necessary tasks
   grunt.loadNpmTasks('grunt-mocha-test');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-nodemon');
 
-  // Default task.
+  // Default task
   grunt.registerTask('default', ['jshint', 'mochaTest']);
-
 };
