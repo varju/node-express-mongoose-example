@@ -20,5 +20,6 @@ if ('development' === app.get('env')) {
 
 app.get('/', routeIndex.index);
 app.post('/users', routeUser.create);
+app.get('/users/:id', routeUser.get);
 
 exports.app = app;

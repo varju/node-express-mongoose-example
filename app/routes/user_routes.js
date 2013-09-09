@@ -2,7 +2,7 @@
 
 var User = require('../models/user_model').User;
 
-function create(req, res, next) {
+exports.create = function (req, res, next) {
   var user = new User(req.body);
   user.validate(function (err) {
     if (err) {
@@ -14,5 +14,18 @@ function create(req, res, next) {
       });
     }
   });
-}
-exports.create = create;
+};
+
+exports.get = function (req, res) {
+  var id = req.param('id');
+  User.findById(id, function (err, user) {
+    if (null === user) {
+      res.send(404);
+    } else {
+      res.status(200).send({
+        name: user.name,
+        id: user.id
+      });
+    }
+  });
+};

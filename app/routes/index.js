@@ -1,6 +1,5 @@
 'use strict';
 
-function index(req, res) {
+exports.index = function (req, res) {
   res.send({ hello: 'world' });
-}
-exports.index = index;
+};
