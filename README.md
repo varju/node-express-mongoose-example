@@ -4,7 +4,7 @@ Simple project to explore building a fully testable Node application.
 
 ## Demo endpoints
 
-Call hello-world:
+List the available routes:
 ```
 curl http://localhost:9650/
 ```

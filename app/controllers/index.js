@@ -15,6 +15,15 @@ module.exports = function (app) {
 
   // define our root controller
   app.get('/', function (req, res) {
-    res.send({ hello: 'world' });
+    var allRoutes = [];
+    for (var method in app.routes) {
+      var methodRoutes = app.routes[method];
+      for (var i = 0; i < methodRoutes.length; i++) {
+        var route = methodRoutes[i];
+        allRoutes.push(method.toUpperCase() + " " + route.path);
+      }
+    }
+
+    res.send({ routes: allRoutes });
   });
 };
