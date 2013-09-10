@@ -3,6 +3,12 @@
 module.exports = function (grunt) {
 
   grunt.initConfig({
+    env: {
+      test: {
+        NODE_ENV: 'test'
+      }
+    },
+
     mochaTest: {
       test: {
         options: {
@@ -49,19 +55,19 @@ module.exports = function (grunt) {
     watch: {
       gruntfile: {
         files: '<%= jshint.gruntfile.src %>',
-        tasks: ['jshint:gruntfile', 'mochaTest']
+        tasks: ['jshint:gruntfile', '_runTests']
       },
       app: {
         files: '<%= jshint.app.src %>',
-        tasks: ['jshint:app', 'mochaTest']
+        tasks: ['jshint:app', '_runTests']
       },
       config: {
         files: '<%= jshint.config.src %>',
-        tasks: ['jshint:config', 'mochaTest']
+        tasks: ['jshint:config', '_runTests']
       },
       test: {
         files: '<%= jshint.test.src %>',
-        tasks: ['jshint:test', 'mochaTest']
+        tasks: ['jshint:test', '_runTests']
       }
     },
 
@@ -77,13 +83,15 @@ module.exports = function (grunt) {
   });
 
   // These plugins provide necessary tasks
+  grunt.loadNpmTasks('grunt-env');
   grunt.loadNpmTasks('grunt-mocha-test');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-nodemon');
 
   // Task aliases
-  grunt.registerTask('test', ['jshint', 'mochaTest']);
+  grunt.registerTask('_runTests', ['env:test', 'mochaTest']);
+  grunt.registerTask('test', ['jshint', '_runTests']);
 
   // Default task
   grunt.registerTask('default', ['test']);

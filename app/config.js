@@ -22,10 +22,7 @@ try {
   // file probably doesn't exist
 }
 
-/**
- * turn on test mode, overriding certain properties
- */
-exports.setTestMode = function () {
+if ('test' === process.env.NODE_ENV) {
   var testOverrides = require('../config/config_test.json');
   extendDeep(exports.props, testOverrides);
-};
+}

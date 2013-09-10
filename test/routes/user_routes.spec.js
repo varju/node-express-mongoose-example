@@ -6,7 +6,6 @@
 var should = require('should');
 var request = require('supertest');
 
-require('../../app/config').setTestMode();
 var server = require('../../app/server');
 var userMock = require('../models/user_model_mock').UserMock;
 
