@@ -1,25 +1,29 @@
 'use strict';
 
+var asyncblock = require('asyncblock');
+
 var User = require('../models/user_model').User;
 
 module.exports = function (app) {
-  app.post('/users', function (req, res, next) {
-    var user = new User(req.body);
-    user.validate(function (err) {
-      if (err) return next(err);
 
-      User.create(req.body, function (err, user) {
-        if (err) return next(err);
-        res.send(201, { id: user.id });
-      });
+  app.post('/users', function (req, res, next) {
+    asyncblock(function (flow) {
+      flow.errorCallback = next;
+
+      var userTemplate = new User(req.body);
+      userTemplate.validate().sync();
+
+      var user = User.create(req.body).sync();
+      res.send(201, { id: user.id });
     });
   });
 
   app.get('/users/:id', function (req, res, next) {
-    var id = req.param('id');
-    User.findById(id, function (err, user) {
-      if (err) return next(err);
+    asyncblock(function (flow) {
+      flow.errorCallback = next;
 
+      var id = req.param('id');
+      var user = User.findById(id).sync();
       if (null === user) {
         res.send(404);
       } else {
@@ -30,4 +34,5 @@ module.exports = function (app) {
       }
     });
   });
+
 };

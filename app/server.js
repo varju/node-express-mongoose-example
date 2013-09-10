@@ -1,5 +1,9 @@
 'use strict';
 
+// enable source transformation
+var asyncblock = require('asyncblock');
+asyncblock.enableTransform();
+
 // start our mongo connection
 var config = require('./config.js');
 var mongoose = require('mongoose');

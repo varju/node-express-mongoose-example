@@ -30,7 +30,8 @@
   },
   "dependencies": {
     "express": "~3.4.0",
-    "mongoose": "~3.6.19"
+    "mongoose": "~3.6.19",
+    "asyncblock": "~2.1.14"
   },
   "devDependencies": {
     "grunt": "~0.4.1",
