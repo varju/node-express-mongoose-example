@@ -1,4 +1,4 @@
-/* global describe,it */
+/* global describe,it,beforeEach */
 
 'use strict';
 
@@ -8,6 +8,11 @@ require('../../app/config').setTestMode();
 var User = require('../../app/models/user_model').User;
 
 describe('user model', function () {
+  beforeEach(function (done) {
+    // clear the database
+    User.remove({}, done);
+  });
+
   describe('create', function () {
     it('should store a new user', function (done) {
       var user = new User({name: 'joe cool'});
@@ -25,3 +30,4 @@ describe('user model', function () {
     });
   });
 });
+ 
