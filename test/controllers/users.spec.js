@@ -30,8 +30,7 @@ describe('users controller', function () {
     });
 
     it('should fail if the name is missing', function (done) {
-      var errorBody = { my: 'error' };
-      userMock.failValidate(errorBody);
+      userMock.failValidate();
 
       request(server.app).
         post('/users').
@@ -40,7 +39,7 @@ describe('users controller', function () {
           should.ifError(err);
           res.should.have.status(400);
           res.should.be.json;
-          res.body.should.eql({ error: errorBody });
+          res.body.should.eql({ error: 'ValidationError: Validator \"mockerr\" failed for path mockpath' });
           done();
         });
     });

@@ -6,13 +6,12 @@ module.exports = function (app) {
   app.post('/users', function (req, res, next) {
     var user = new User(req.body);
     user.validate(function (err) {
-      if (err) res.send(400, { error: err });
-      else {
-        User.create(req.body, function (err, user) {
-          if (err) return next(err);
-          res.send(201, { id: user.id });
-        });
-      }
+      if (err) return next(err);
+
+      User.create(req.body, function (err, user) {
+        if (err) return next(err);
+        res.send(201, { id: user.id });
+      });
     });
   });
 
@@ -20,6 +19,7 @@ module.exports = function (app) {
     var id = req.param('id');
     User.findById(id, function (err, user) {
       if (err) return next(err);
+
       if (null === user) {
         res.send(404);
       } else {

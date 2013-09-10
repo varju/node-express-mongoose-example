@@ -3,6 +3,7 @@
 'use strict';
 
 var sinon = require('sinon');
+var mongoose = require('mongoose');
 
 exports.SinonMock = (function () {
   function SinonMock(modelToMock) {
@@ -37,8 +38,10 @@ exports.SinonMock = (function () {
       prototypeMock.expects('validate').once().callsArgAsync(0);
     };
 
-    this.failValidate = function (errorBody) {
-      prototypeMock.expects('validate').once().callsArgWithAsync(0, errorBody);
+    this.failValidate = function () {
+      var error = new mongoose.Error.ValidationError({});
+      error.errors = { mock: new mongoose.Error.ValidatorError('mockpath', 'mockerr') };
+      prototypeMock.expects('validate').once().callsArgWithAsync(0, error);
     };
 
     this.allowCreate = function (result) {
