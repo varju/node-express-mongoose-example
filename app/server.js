@@ -18,12 +18,7 @@ if ('development' === app.get('env')) {
   app.use(express.errorHandler());
 }
 
-// define our routes
-var routeIndex = require('./routes/index');
-app.get('/', routeIndex.index);
-
-var routeUser = require('./routes/user_routes');
-app.post('/users', routeUser.create);
-app.get('/users/:id', routeUser.get);
+// define our controllers
+require('./controllers')(app);
 
 exports.app = app;
