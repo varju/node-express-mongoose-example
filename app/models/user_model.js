@@ -1,8 +1,6 @@
 'use strict';
 
-var config = require('../config.js');
 var mongoose = require('mongoose');
-mongoose.connect(config.props.mongo.uri);
 
 var userSchema = new mongoose.Schema({
   name: {
