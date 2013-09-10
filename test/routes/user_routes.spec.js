@@ -8,11 +8,16 @@ var request = require('supertest');
 
 require('../../app/config').setTestMode();
 var server = require('../../app/server');
-var User = require('../../app/models/user_model').User;
+var userMock = require('../models/user_model_mock').UserMock;
 
 describe('users controller', function () {
+  userMock.register();
+
   describe('POST /users', function () {
-    it('should say hello', function (done) {
+    it('should create a user', function (done) {
+      userMock.allowValidate();
+      userMock.allowCreate({ id: 'mockId'});
+
       request(server.app).
         post('/users').
         send({ name: 'my user' }).
@@ -20,12 +25,15 @@ describe('users controller', function () {
           should.ifError(err);
           res.should.have.status(201);
           res.should.be.json;
-          res.body.id.should.match(/^[0-9a-f]{24}$/);
+          res.body.id.should.eql('mockId');
           done();
         });
     });
 
     it('should fail if the name is missing', function (done) {
+      var errorBody = { my: 'error' };
+      userMock.failValidate(errorBody);
+
       request(server.app).
         post('/users').
         send({}).
@@ -33,9 +41,7 @@ describe('users controller', function () {
           should.ifError(err);
           res.should.have.status(400);
           res.should.be.json;
-          res.body.should.have.property('error');
-          res.body.error.name.should.eql('ValidationError');
-          res.body.error.errors.should.have.property('name');
+          res.body.should.eql({ error: errorBody });
           done();
         });
     });
@@ -43,26 +49,40 @@ describe('users controller', function () {
 
   describe('GET /users/:id', function () {
     it('should load a user', function (done) {
-      User.create({name: 'test user'}, function (err, user) {
-        should.ifError(err);
-        request(server.app).
-          get('/users/' + user.id).
-          end(function (err, res) {
-            should.ifError(err);
-            res.should.have.status(200);
-            res.should.be.json;
-            res.body.should.eql({ name: 'test user', id: user.id});
-            done();
-          });
-      });
+      var user = {name: 'fred', id: '123'};
+      userMock.allowFindById(user);
+
+      request(server.app).
+        get('/users/' + user.id).
+        end(function (err, res) {
+          should.ifError(err);
+          res.should.have.status(200);
+          res.should.be.json;
+          res.body.should.eql(user);
+          done();
+        });
     });
 
     it("should fail if the user doesn't exist", function (done) {
+      userMock.allowFindById(null);
+
       request(server.app).
         get('/users/000000000000000000000000').
         end(function (err, res) {
           should.ifError(err);
           res.should.have.status(404);
+          done();
+        });
+    });
+
+    it("should fail if mongo is down", function (done) {
+      userMock.failFindById();
+
+      request(server.app).
+        get('/users/000000000000000000000000').
+        end(function (err, res) {
+          should.ifError(err);
+          res.should.have.status(500);
           done();
         });
     });

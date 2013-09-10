@@ -30,4 +30,3 @@ describe('user model', function () {
     });
   });
 });
- 

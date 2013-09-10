@@ -43,6 +43,7 @@
     "supertest": "~0.7.1",
     "should": "~1.2.2",
     "travis-cov": "~0.2.4",
-    "blanket": "~1.1.5"
+    "blanket": "~1.1.5",
+    "sinon": "~1.7.3"
   }
 }
