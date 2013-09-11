@@ -5,10 +5,10 @@
 var sinon = require('sinon');
 var mongoose = require('mongoose');
 
-exports.SinonMock = (function () {
-  function SinonMock(modelToMock) {
+exports.MongooseMock = (function () {
+  function MongooseMock(modelToMock) {
     var sandbox;
-    var prototypeMock;
+    var instanceMock;
     var classMock;
 
     /**
@@ -18,12 +18,12 @@ exports.SinonMock = (function () {
       beforeEach(function () {
         sandbox = sinon.sandbox.create();
 
-        prototypeMock = sandbox.mock(modelToMock.prototype);
+        instanceMock = sandbox.mock(modelToMock.prototype);
         classMock = sandbox.mock(modelToMock);
       });
 
       afterEach(function () {
-        prototypeMock.verify();
+        instanceMock.verify();
         classMock.verify();
 
         sandbox.restore();
@@ -35,13 +35,13 @@ exports.SinonMock = (function () {
      */
 
     this.allowValidate = function () {
-      prototypeMock.expects('validate').once().callsArgAsync(0);
+      instanceMock.expects('validate').once().callsArgAsync(0);
     };
 
     this.failValidate = function () {
       var error = new mongoose.Error.ValidationError({});
       error.errors = { mock: new mongoose.Error.ValidatorError('mockpath', 'mockerr') };
-      prototypeMock.expects('validate').once().callsArgWithAsync(0, error);
+      instanceMock.expects('validate').once().callsArgWithAsync(0, error);
     };
 
     /*
@@ -61,5 +61,5 @@ exports.SinonMock = (function () {
     };
   }
 
-  return SinonMock;
+  return MongooseMock;
 })();
