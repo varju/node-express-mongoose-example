@@ -6,6 +6,12 @@ module.exports = function (grunt) {
     env: {
       test: {
         NODE_ENV: 'test'
+      },
+      dev: {
+        NODE_ENV: 'development'
+      },
+      prod: {
+        NODE_ENV: 'production'
       }
     },
 
@@ -92,6 +98,8 @@ module.exports = function (grunt) {
   // Task aliases
   grunt.registerTask('_runTests', ['env:test', 'mochaTest']);
   grunt.registerTask('test', ['jshint', '_runTests']);
+  grunt.registerTask('dev', ['env:dev', 'nodemon']);
+  grunt.registerTask('prod', ['env:prod', 'nodemon']);
 
   // Default task
   grunt.registerTask('default', ['test']);
