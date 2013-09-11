@@ -10,10 +10,10 @@ module.exports = function (app) {
     asyncblock(function (flow) {
       flow.errorCallback = next;
 
-      var userTemplate = new User(req.body);
-      userTemplate.validate().sync();
+      var userTemplate = req.body;
+      new User(userTemplate).validate().sync();
 
-      var user = User.create(req.body).sync();
+      var user = User.create(userTemplate).sync();
       res.send(201, { id: user.id });
     });
   });
@@ -28,8 +28,8 @@ module.exports = function (app) {
         res.send(404);
       } else {
         res.status(200).send({
-          name: user.name,
-          id: user.id
+          id: user.id,
+          name: user.name
         });
       }
     });

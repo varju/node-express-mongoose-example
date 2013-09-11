@@ -31,7 +31,7 @@ exports.SinonMock = (function () {
     };
 
     /*
-     * mocks
+     * instance mocks
      */
 
     this.allowValidate = function () {
@@ -43,6 +43,10 @@ exports.SinonMock = (function () {
       error.errors = { mock: new mongoose.Error.ValidatorError('mockpath', 'mockerr') };
       prototypeMock.expects('validate').once().callsArgWithAsync(0, error);
     };
+
+    /*
+     * class mocks
+     */
 
     this.allowCreate = function (result) {
       classMock.expects('create').once().callsArgWithAsync(1, null, result);
